@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "a4d04cd7-0502-4bc6-b154-6afd15299c90",
+		"name": "Validation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32406604"
+	},
+	"item": [
+		{
+			"name": "validate-dto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"edujeeh\",\n    \"email\": \"edujeehogmail.com\",\n    \"age\": 13,\n    \"validUntil\": \"2023-01-24\",\n    \"notNullString\": \"\",\n    \"notEmptyString\": \" \",\n    \"notBlankString\": \"a\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/validate-dto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"validate-dto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate-man",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"edujeeho\",\n    \"password\": \"12345678910\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/validate-man",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"validate-man"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate-params",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/validate-params?age=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"validate-params"
+					],
+					"query": [
+						{
+							"key": "age",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
