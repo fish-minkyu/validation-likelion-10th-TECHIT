@@ -13,13 +13,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 // Dto는 사용자가 보내주는 Json데이터를 자바로 표현한 것이다.
-// 13:30 다시 들어보기
 public class UserDto {
   private Long id;
   // 사용자가 입력하는 데이터 중 검증하고 싶은 데이터
 
-  // 필수값, 사용자 계정은 8글자 이상
+  // 필수값
   @NotNull
+  // 사용자 계정은 8글자 이상
   // message를 기록하면 예외에 기록되는 문구를 바꿀 수 있다.
   @Size(min = 8, message = "8자는 넣어주세요.")
   private String username;
@@ -35,10 +35,10 @@ public class UserDto {
   private LocalDate validUntil;
 
   // NotNull vs NotEmpty vs NotBlank
-  @NotNull
+  @NotNull // null만 아니면 된다. 즉 어떤 데이터를 넣어도 상관없다. Ex. ""
   private String notNullString;
-  @NotEmpty
+  @NotEmpty // 비어있지만 않으면 된다. 즉 길이가 0만 아니면 된다. Ex. " "
   private String notEmptyString;
-  @NotBlank
+  @NotBlank // 내용물이 존재해야 동작한다. Ex. "a"
   private String notBlankString;
 }
