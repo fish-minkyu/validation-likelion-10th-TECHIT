@@ -23,6 +23,7 @@ Validation으로 @Valid, @NotNull, @NotEmpty, @NotBlank, @Min, @Size, @Email을 
 @Validated 2가지 기능
 1. 클래스 단위에서 작동, 메소드 파라미터 Validation 검사
 2. Dto별 검사 분리방법
+UserPartialDto - UserController - MandatoryStep
 
 
 # 복습
