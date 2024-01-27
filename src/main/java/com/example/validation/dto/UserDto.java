@@ -24,7 +24,7 @@ public class UserDto {
   @Size(min = 8, message = "8자는 넣어주세요.")
   private String username;
   @Email(message = "Email을 넣어주세요.")
-//  @EmailWhiteList
+//  @EmailWhiteList(message = "혀용된 도메인이 아닙니다.")
   @EmailBlackList(blackList = {"malware.good", "yahoo.com"}) // 복수개를 넣으려면 중괄호({})를 사용한다.
   private String email;
   // 14세 이상만 받아준다.

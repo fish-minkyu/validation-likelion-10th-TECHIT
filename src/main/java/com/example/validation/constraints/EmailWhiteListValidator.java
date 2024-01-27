@@ -7,11 +7,13 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.HashSet;
 import java.util.Set;
 
+// ConstraintValidator Class
 // 어노테이션이 붙은 타겟이 어떤 조건을 만족할지 validation
 public class EmailWhiteListValidator implements ConstraintValidator<EmailWhiteList, String> {
 
   private final Set<String> whiteList;
 
+  // 생성자
   public EmailWhiteListValidator() {
     this.whiteList = new HashSet<>(); // Set을 쓰는 것이 성능적으로 좋다.
     this.whiteList.add("gmail.com");
@@ -26,8 +28,9 @@ public class EmailWhiteListValidator implements ConstraintValidator<EmailWhiteLi
   // 반환하도록 만들면 된다.
   @Override
   public boolean isValid(
-    // value: 실제로 사용자가 입력한 내용이 여기 들어간다.
+    // value: 실제로 사용자가 입력한 내용이 여기 들어온다.
     String value,
+    // 일단 ConstraintValidatorContext란 타입이 있구나 하고 넘어가기
     ConstraintValidatorContext context
   ) {
     // value가 null인지 체크하고, (null이면 false)

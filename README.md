@@ -30,8 +30,16 @@
 2. Service 단위에서 유효성 검사
 3. DB 제약사항을 통해 유효성 검사  
 
+
+또한, 들어온 데이터가 서버가 정한 형식에 적합한지만 검사를 해야한다.  
+그 외 검사는 서비스 계층에서 하는 것이 맞다.  
+(Ex. 날짜란 데이터를 받을 때 Integer인지만 확인, 그 날짜가 31일 넘는지 아닌지는 서비스 계층에서 확인한다.)
+
 \
 `1월 24일` 수업 내용은 사용자 지정 유효성 검사이다.  
+이 때, 필요한 것은 다음과 같다.  
+1. 설정할 어노테이션 
+2. 그 어노테이션의 유효성 검사 설정을 할 클래스
 
 
 
@@ -215,6 +223,68 @@ public interface MandatoryStep {
 
 `01/24`
 
+1. `Anotation`
+[EmailWhiteList](src/main/java/com/example/validation/constraints/anotations/EmailWhiteList.java)
+```java
+// @Target
+// : 이 어노테이션(= 주석)이 어디에 붙일 수 있는지
+@Target(ElementType.FIELD) // FIELD는 클래스의 속성에 붙인다는 의미다.
+// @Retention
+// : Retention(= 유지)은 언제까지 어노테이션이 남아있는지
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = EmailWhiteListValidator.class)
+public @interface EmailWhiteList {
+  // Bean validation을 할 때, validation 라이브러리에서
+  // constraint를 만들고 싶으면 이러한 조건들을 붙여줘야 한다.
+  String message() default  "Email not in whiteList";
+  Class<?>[] groups() default {};
+  // 거의 안쓰기 때문에 필요하다라고만 알아두고 똑같이 넣어주면 된다.
+  // 궁금하면 찾아보기 (그렇게 중요하지 않음)
+  Class<? extends Payload>[] payload() default {};
+}
+```
+2. `유효성 검사 설정 Class`
+[EmailWhiteListValidator](src/main/java/com/example/validation/constraints/EmailWhiteListValidator.java)
+```java
+// ConstraintValidator Class
+// 어노테이션이 붙은 타겟이 어떤 조건을 만족할지 validation
+public class EmailWhiteListValidator implements ConstraintValidator<EmailWhiteList, String> {
+
+  private final Set<String> whiteList;
+
+  // 생성자
+  public EmailWhiteListValidator() {
+    this.whiteList = new HashSet<>(); // Set을 쓰는 것이 성능적으로 좋다.
+    this.whiteList.add("gmail.com");
+    this.whiteList.add("naver.com");
+    this.whiteList.add("kakao.com");
+  }
+
+
+  // EmailWhiteList 어노테이션이 붙은 대상의 데이터가
+  // 검사를 통과하면 true를
+  // 검사에 실패하면 false를
+  // 반환하도록 만들면 된다.
+  @Override
+  public boolean isValid(
+    // value: 실제로 사용자가 입력한 내용이 여기 들어온다.
+    String value,
+    // 일단 ConstraintValidatorContext란 타입이 있구나 하고 넘어가기
+    ConstraintValidatorContext context
+  ) {
+    // value가 null인지 체크하고, (null이면 false)
+    if (value == null) return false;
+    // value에 @가 포함되고 있는지 확인하고, (아니면 false)
+    if (!value.contains("@")) return false;
+    // value에 @을 기준으로 자른 뒤, 재일 뒤가 'this.whiteList'에
+    // 담긴 값 중 하나인지를 확인한다.
+    String[] split = value.split("@");
+    String domain = split[split.length -1];
+    return whiteList.contains(domain);
+  }
+}
+```
 
 # 복습
-~~2024.01.24 일부 복습~~
+~~2024.01.24 Validation 복습~~  
+~~2024.01.27 사용자 지정 유효성 검사 복습~~

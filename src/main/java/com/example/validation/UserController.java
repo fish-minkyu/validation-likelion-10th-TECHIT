@@ -91,6 +91,7 @@ public class UserController {
   public Map<String, Object> handleValidationException(
     final MethodArgumentNotValidException exception
   ) {
+    // log.warn(), 예외를 조사하고 싶을 때 ExceptionHandler에서 log.warn() 찍어보기
     Map<String, Object> errors = new HashMap<>();
     // 예외가 가진 데이터를 불러오기
     // : 예외가 발생하면서 어떠한 데이터 인해 예외가 발생했는지 확인
