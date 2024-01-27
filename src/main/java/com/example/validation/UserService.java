@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 
 @Slf4j
 @Service
-// @Validated는 Controller에서만 사용할 수 있는 것이 아니다.느
+// @Validated는 Controller에서만 사용할 수 있는 것이 아니다.
 // 어떤 클래스에서도 사용이 가능하다.
 @Validated
 public class UserService {
